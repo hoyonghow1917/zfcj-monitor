@@ -27,11 +27,10 @@ jobs:
 
       - name: 运行监控脚本
         env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          MAIL_TO: ${{ secrets.MAIL_TO }}
+          WX_APPID: ${{ secrets.WX_APPID }}
+          WX_APPSECRET: ${{ secrets.WX_APPSECRET }}
+          WX_USERID: ${{ secrets.WX_USERID }}
+          WX_TEMPLATE_ID: ${{ secrets.WX_TEMPLATE_ID }}
         run: python monitor.py
 
       - name: 保存 seen.json
