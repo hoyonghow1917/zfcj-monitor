@@ -63,7 +63,14 @@ def fetch_articles():
         page = browser.new_page()
         page.goto(URL, wait_until="networkidle", timeout=60000)
         page.wait_for_timeout(5000) # 强制等待 5 秒，确保 JS 渲染完毕
+        
+        # ========== 新增诊断信息，跑完后看日志 ==========
+        print("网页标题:", page.title())
         html = page.content()
+        print("网页 HTML 长度:", len(html))
+        print("网页前 500 个字符:", html[:500].replace("\n", " "))
+        # =============================================
+
         browser.close()
 
     soup = BeautifulSoup(html, "html.parser")
@@ -75,7 +82,7 @@ def fetch_articles():
         if not title or len(title) < 5:
             continue
         # 放宽过滤条件
-        if not any(k in href for k in ["content", "post", "gkmlpt", "detail", "info"]):
+        if not any(k in href for k in ["content", "post", "gkmlpt", "detail", "info", "news"]):
             continue
 
         if href.startswith("/"):
